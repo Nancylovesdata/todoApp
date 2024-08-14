@@ -1,0 +1,46 @@
+
+
+<div class="todo-app-container">
+  <div class="todo-header">
+    <h2>Todo List</h2>
+  </div>
+
+  <div class="todo-input">
+    <input [(ngModel)]="newTodo" placeholder="Enter text..." />
+    <button (click)="addTodo()">Add</button>
+  </div>
+
+  <div class="todo-list-container">
+    <h3>Todo List</h3>
+    <ul>
+      <ng-container *ngFor="let todo of todos$ | async">
+        <li *ngIf="!todo.completed">
+          <div class="todo-item">
+            <input type="checkbox" [checked]="todo.completed" (click)="toggleTodo(todo.id)" />
+            <span [ngClass]="{ completed: todo.completed }">{{ todo.title }}</span>
+            <button class="remove-btn" (click)="removeTodo(todo.id)">
+              <span class="material-symbols-outlined">delete</span>
+            </button>
+          </div>
+        </li>
+      </ng-container>
+    </ul>
+  </div>
+
+  <div class="finished-list-container">
+    <h3>Finished List</h3>
+    <ul>
+      <ng-container *ngFor="let todo of todos$ | async">
+        <li *ngIf="todo.completed">
+          <div class="todo-item">
+            <input type="checkbox" [checked]="todo.completed" (click)="toggleTodo(todo.id)" />
+            <span class="completed">{{ todo.title }}</span>
+            <button class="remove-btn" (click)="removeTodo(todo.id)">
+              <span class="material-symbols-outlined">delete</span>
+            </button>
+          </div>
+        </li>
+      </ng-container>
+    </ul>
+  </div>
+</div>
